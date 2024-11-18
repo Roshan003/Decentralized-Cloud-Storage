@@ -32,47 +32,40 @@ The Decentralized Cloud Storage System enables decentralized file storage with E
    ```bash
    git clone https://github.com/Roshan003/Decentralized-Cloud-Storage.git
    cd Decentralized-Cloud-Storage
-Install the required dependencies:
-
-bash
-Copy code
-npm install
-Ensure MetaMask is connected to the appropriate Ethereum network (e.g., Ganache).
-
-Start the application:
-
-bash
-Copy code
-npm start
-Open the application in your browser at http://localhost:3000.
+2. Install the required dependencies:
+   ```bash
+   npm install
+3. Ensure MetaMask is connected to the appropriate Ethereum network (e.g., Ganache).
+4. Start the application:
+   ```bash
+   npm start
+5. Open the application in your browser at http://localhost:3000.
 
 ## 4. User Guide
 
 ### Uploading Files
-Connect MetaMask: Click on "Connect Wallet" to connect your MetaMask account to the application.
-Upload File: Use the Upload button to select a file from your local machine. The file is uploaded to IPFS, and the file's hash (CID) is stored on the Ethereum blockchain via a smart contract.
-Transaction Confirmation: After uploading, MetaMask will prompt you to confirm the transaction. Once confirmed, the file’s CID is recorded on-chain.
+1. Connect MetaMask: Click on "Connect Wallet" to connect your MetaMask account to the application.
+2. Upload File: Use the Upload button to select a file from your local machine. The file is uploaded to IPFS, and the file's hash (CID) is stored on the Ethereum blockchain via a smart contract.
+3. Transaction Confirmation: After uploading, MetaMask will prompt you to confirm the transaction. Once confirmed, the file’s CID is recorded on-chain.
 
-###4.2 Viewing Files
-Retrieve File: In the application’s display section, the uploaded files are listed along with their IPFS CID.
-Access File: Click on the link associated with a CID to view/download the file from IPFS.
+### 4.2 Viewing Files
+1. Retrieve File: In the application’s display section, the uploaded files are listed along with their IPFS CID.
+2. Access File: Click on the link associated with a CID to view/download the file from IPFS.
 
 ## 5. Blockchain Interaction
 
 ### 5.1 Smart Contract Overview
 The smart contract is responsible for:
-
-Storing IPFS CIDs of uploaded files.
-Managing file ownership.
-Enforcing permissions (e.g., who can access the file).
-Contract Address: The smart contract is deployed to the Ethereum blockchain at address:
+- Storing IPFS CIDs of uploaded files.
+- Managing file ownership.
+- Enforcing permissions (e.g., who can access the file).
+**Contract Address**: The smart contract is deployed to the Ethereum blockchain at address:
 0xYourContractAddressHere
 
 ### 5.2 MetaMask Integration
 The application uses MetaMask for:
-
-Account management: Connects your Ethereum wallet.
-Transaction signing: For uploading files and interacting with the contract.
+- **Account management**: Connects your Ethereum wallet.
+- **Transaction signing**: For uploading files and interacting with the contract.
 
 ## 6. File Storage with IPFS
 ### 6.1 What is IPFS?
@@ -87,19 +80,18 @@ https://ipfs.io/ipfs/{CID}
 
 ## 7. Troubleshooting
 ### 7.1 Common Issues
-MetaMask Not Connected: Ensure MetaMask is installed and connected to the correct network.
-Transaction Stuck: If your transaction is stuck pending, check the gas fee and network congestion.
-File Not Found: If the file is missing, verify the CID and ensure it has not been removed from the IPFS network.
+- **MetaMask Not Connected**: Ensure MetaMask is installed and connected to the correct network.
+- **Transaction Stuck**: If your transaction is stuck pending, check the gas fee and network congestion.
+- **File Not Found**: If the file is missing, verify the CID and ensure it has not been removed from the IPFS network.
 ## 8. Security Considerations
-Private Data: Sensitive data should be encrypted before uploading to IPFS, as the content is publicly accessible via the CID.
-Smart Contract Risks: Always review the smart contract code before deploying to the main Ethereum network to ensure it is secure.
-MetaMask Phishing: Only interact with the application via trusted networks and devices to avoid phishing attacks.
+- **Private Data**: Sensitive data should be encrypted before uploading to IPFS, as the content is publicly accessible via the CID.
+- **Smart Contract Risks**: Always review the smart contract code before deploying to the main Ethereum network to ensure it is secure.
+- **MetaMask Phishing**: Only interact with the application via trusted networks and devices to avoid phishing attacks.
 ## 9. Technical Support
 For further assistance or technical support, please contact:
-
-Developer: Roshan Baig Moghal
-Email: rmv33@umsystem.edu
-GitHub: https://github.com/Roshan003/Decentralized-Cloud-Storage.git
+- **Developer**: Roshan Baig Moghal
+- **Email**: rmv33@umsystem.edu
+- **GitHub**: https://github.com/Roshan003/Decentralized-Cloud-Storage.git
 ## 10. Appendix
 ### 10.1 Code Snippets
 Solidity Smart Contract (Upload.sol)
@@ -123,9 +115,35 @@ contract Upload {
   function add(address _user,string memory url) external {
       value[_user].push(url);
   }
-  function allow(address user) external {
+  function allow(address user) external {//def
       ownership[msg.sender][user]=true; 
       if(previousData[msg.sender][user]){
          for(uint i=0;i<accessList[msg.sender].length;i++){
              if(accessList[msg.sender][i].user==user){
                   accessList[msg.sender][i].access=true; 
+             }
+         }
+      }else{
+          accessList[msg.sender].push(Access(user,true));  
+          previousData[msg.sender][user]=true;  
+      }
+    
+  }
+  function disallow(address user) public{
+      ownership[msg.sender][user]=false;
+      for(uint i=0;i<accessList[msg.sender].length;i++){
+          if(accessList[msg.sender][i].user==user){ 
+              accessList[msg.sender][i].access=false;  
+          }
+      }
+  }
+
+  function display(address _user) external view returns(string[] memory){
+      require(_user==msg.sender || ownership[_user][msg.sender],"You don't have access");
+      return value[_user];
+  }
+
+  function shareAccess() public view returns(Access[] memory){
+      return accessList[msg.sender];
+  }
+}
