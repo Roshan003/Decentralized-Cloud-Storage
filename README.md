@@ -14,7 +14,7 @@ The Decentralized Cloud Storage System enables decentralized file storage with E
 
 - **Frontend**: Built using React.js for user interaction.
 - **Backend**: Smart contracts written in Solidity, deployed on the Ethereum blockchain.
-- **Storage**: Files are stored on IPFS, a decentralized file storage system.
+- **Storage**: Files are stored on IPFS, a decentralized file storage system. (In our case we are using pinata cloud)
 - **MetaMask**: Used for user authentication and blockchain interaction.
 
 ## 3. Installation and Setup
