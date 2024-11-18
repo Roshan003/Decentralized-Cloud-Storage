@@ -46,13 +46,13 @@ The Decentralized Cloud Storage System enables decentralized file storage with E
 ## 4. User Guide
 
 ### Uploading Files
-1. - **. Connect MetaMask**: Click on "Connect Wallet" to connect your MetaMask account to the application.
-2. - **Upload File**: Use the Upload button to select a file from your local machine. The file is uploaded to IPFS, and the file's hash (CID) is stored on the Ethereum blockchain via a smart contract.
-3. - **Transaction Confirmation**: After uploading, MetaMask will prompt you to confirm the transaction. Once confirmed, the file’s CID is recorded on-chain.
+1. **Connect MetaMask**: Click on "Connect Wallet" to connect your MetaMask account to the application.
+2. **Upload File**: Use the Upload button to select a file from your local machine. The file is uploaded to IPFS, and the file's hash (CID) is stored on the Ethereum blockchain via a smart contract.
+3. **Transaction Confirmation**: After uploading, MetaMask will prompt you to confirm the transaction. Once confirmed, the file’s CID is recorded on-chain.
 
 ### 4.2 Viewing Files
-1. - **Retrieve File**: In the application’s display section, the uploaded files are listed along with their IPFS CID.
-2. - **Access File**: Click on the link associated with a CID to view/download the file from IPFS.
+1. **Retrieve File**: In the application’s display section, the uploaded files are listed along with their IPFS CID.
+2. **Access File**: Click on the link associated with a CID to view/download the file from IPFS.
 
 ## 5. Blockchain Interaction
 
