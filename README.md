@@ -36,10 +36,12 @@ The Decentralized Cloud Storage System enables decentralized file storage with E
    ```bash
    npm install
 3. Ensure MetaMask is connected to the appropriate Ethereum network (e.g., Ganache).
-4. Start the application:
+4. Sign up to https://pinata.cloud/ and create a new Api key and Secret key.
+5. Go to FileUpload.js and replace with your details (Line Number 23 and 24)
+6. Start the application:
    ```bash
    npm start
-5. Open the application in your browser at http://localhost:3000.
+7. Open the application in your browser at http://localhost:3000.
 
 ## 4. User Guide
 
